@@ -21,7 +21,10 @@ bool send_file(const char *server_ip, const File *file)
     if (!connect_success){
         return false;
     }
-    socket_send(&server, file->buffer, file->buffer_size);
+    bool send_success = socket_send(&server, file->buffer, file->buffer_size);
+    if (!send_success){
+        return false;
+    }
     socket_close(&server);
     return true;
 }
